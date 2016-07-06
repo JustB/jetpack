@@ -20,7 +20,8 @@ var autoprefixer = require( 'gulp-autoprefixer' ),
 	sourcemaps = require( 'gulp-sourcemaps' ),
 	stylish = require( 'jshint-stylish'),
 	util = require( 'gulp-util' ),
-	webpack = require( 'webpack' );
+	webpack = require( 'webpack' ),
+	uglify = require( 'gulp-uglify' );
 
 var language_packs = require( './language-packs.js' );
 
@@ -323,6 +324,25 @@ gulp.task( 'js:qunit', function() {
 		.pipe( qunit() );
 });
 
+gulp.task( 'js:uglify', function () {
+	return gulp.src( [
+			'_inc/*.js',
+			'modules/*.js',
+			'modules/**/*.js',
+			'!_inc/*.min.js',
+			'!modules/*.min.',
+			'!modules/**/*.min.js'
+		], {base: './'} )
+		.pipe( sourcemaps.init() )
+		.pipe( uglify() )
+		.pipe( rename( {suffix: '.min'} ) )
+		.pipe( sourcemaps.write( '.' ) )
+		.pipe( gulp.dest( '.' ) )
+		.on( 'end', function () {
+			console.log( 'js:uglify finished.' );
+		} );
+} );
+
 /*
 	I18n land
 */
@@ -385,10 +405,10 @@ gulp.task( 'languages:extract', [ 'react:build' ], function( callback ) {
 } );
 
 // Default task
-gulp.task( 'default', ['react:build', 'sass:build', 'old-styles', 'checkstrings', 'php:lint', 'js:hint'] );
+gulp.task( 'default', ['react:build', 'sass:build', 'old-styles', 'checkstrings', 'php:lint', 'js'] );
 gulp.task( 'watch',   ['react:watch', 'sass:watch', 'old-styles:watch'] );
 
-gulp.task( 'jshint',       ['js:hint'] );
+gulp.task( 'jshint',       ['js:hint', 'js:uglify'] );
 gulp.task( 'php',          ['php:lint', 'php:unit'] );
 gulp.task( 'checkstrings', ['check:DIR'] );
 gulp.task( 'old-styles',   ['frontendcss', 'admincss', 'admincss:rtl', 'old-sass', 'old-sass:rtl'] );
