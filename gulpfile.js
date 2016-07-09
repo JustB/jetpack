@@ -408,7 +408,7 @@ gulp.task( 'languages:extract', [ 'react:build' ], function( callback ) {
 gulp.task( 'default', ['react:build', 'sass:build', 'old-styles', 'checkstrings', 'php:lint', 'js'] );
 gulp.task( 'watch',   ['react:watch', 'sass:watch', 'old-styles:watch'] );
 
-gulp.task( 'jshint',       ['js:hint', 'js:uglify'] );
+gulp.task( 'js',           ['js:hint', 'js:uglify'] );
 gulp.task( 'php',          ['php:lint', 'php:unit'] );
 gulp.task( 'checkstrings', ['check:DIR'] );
 gulp.task( 'old-styles',   ['frontendcss', 'admincss', 'admincss:rtl', 'old-sass', 'old-sass:rtl'] );
