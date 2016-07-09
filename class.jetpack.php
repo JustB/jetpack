@@ -5527,7 +5527,7 @@ p {
 		 * @param bool $development_mode Whether to load minified script.
 		 */
 		$load_minified_scripts = apply_filters( 'jetpack_load_minified_scripts', $load_minified_scripts );
-		
+
 		// Short out on non-Jetpack assets or in dev mode.
 		if ( false === strpos( $url, $jetpack_url ) || ! $load_minified_scripts ) {
 			return $url;
@@ -5536,7 +5536,7 @@ p {
 		// File name parsing.
 		$base              = dirname( plugin_basename( $plugin ) );
 		$file              = "{$base}/{$path}";
-		$full_path         = JETPACK__PLUGIN_DIR . substr( $file, 8 );
+		$full_path         = JETPACK__PLUGIN_DIR . substr( $file, strlen( basename( JETPACK__PLUGIN_DIR ) ) + 1 );
 		$file_name         = substr( $full_path, strrpos( $full_path, '/' ) + 1 );
 		$file_name_parts_r = array_reverse( explode( '.', $file_name ) );
 		$extension         = array_shift( $file_name_parts_r );
