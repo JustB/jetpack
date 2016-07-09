@@ -5547,9 +5547,11 @@ p {
 				return $url;
 			}
 
-			$min_full_path = preg_replace( "#\.{$extension}$#", ".min.{$extension}", $full_path );
+			$min_extension = strtolower( $extension );
+
+			$min_full_path = preg_replace( "#\.{$extension}$#", ".min.{$min_extension}", $full_path );
 			if ( file_exists( $min_full_path ) ) {
-				$url = preg_replace( "#\.{$extension}$#", ".min.{$extension}", $url );
+				$url = preg_replace( "#\.{$extension}$#", ".min.{$min_extension}", $url );
 			}
 		}
 

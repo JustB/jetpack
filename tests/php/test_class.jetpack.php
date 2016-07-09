@@ -356,6 +356,10 @@ EXPECTED;
 		$this->assertContains( 'script7.js.min.js', $min_file );
 		$min_file = plugins_url( '_inc/core.jsdom.js', JETPACK__PLUGIN_FILE );
 		$this->assertContains( '_inc/core.jsdom.min.js', $min_file );
+
+		$min_file = plugins_url( '_inc/case-sensitive.JS', JETPACK__PLUGIN_FILE );
+		$this->assertContains( '_inc/case-sensitive.min.js', $min_file );
+
 		$min_file = plugins_url( 'external/script5.js' );
 		$this->assertNotContains( 'script5.min.js', $min_file );
 		$min_file = plugins_url( '_inc/script2.js', JETPACK__PLUGIN_FILE );
